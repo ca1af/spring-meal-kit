@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>영화 수정하기</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<h1>영화 수정하기</h1>
+<form id="edit-movie-form">
+    <label>
+        제목:
+        <input id="edit-movie-title" type="text" readonly />
+    </label>
+    <label>
+        나의 리뷰:
+        <textarea id="edit-movie-review"></textarea>
+    </label>
+    <label>
+        별점:
+        <input id="edit-movie-star" type="number" min="1" max="5" />
+    </label>
+    <button type="submit">수정 완료하기</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editForm = document.getElementById('edit-movie-form');
+
+        if(editForm) {
+            let movieId = location.search.split('=')[1];
+            getMovie(movieId);
+            editForm.addEventListener('submit', (e) => updateMovie(e, movieId));
+        }
+    });
+
+    function getMovie(id) {
+        fetch(`/api/movies/${id}`)
+            .then(response => response.json())
+            .then(movie => fillForm(movie));
+    }
+
+    function fillForm(movie) {
+        document.getElementById('edit-movie-title').value = movie.title;
+        document.getElementById('edit-movie-review').value = movie.myReview;
+        document.getElementById('edit-movie-star').value = movie.star;
+    }
+
+    function updateMovie(e, id) {
+        e.preventDefault();
+
+        let title = document.getElementById('edit-movie-title').value;
+        let myReview = document.getElementById('edit-movie-review').value;
+        let star = document.getElementById('edit-movie-star').value;
+
+        let movie = { title, myReview, star };
+
+        fetch(`/api/movies/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(movie),
+        })
+            .then(() => window.location.href = 'index.html');
+    }
+</script>
+
+</body>
+</html>

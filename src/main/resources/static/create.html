@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>영화 추가하기</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<h1>나만의 영화 리뷰 작성하기</h1>
+<form id="new-movie-form">
+    <label>
+        제목:
+        <input id="new-movie-title" type="text" />
+    </label>
+    <label>
+        나의 리뷰:
+        <textarea id="new-movie-review"></textarea>
+    </label>
+    <label>
+        별점:
+        <input id="new-movie-star" type="number" min="1" max="5" />
+    </label>
+    <button type="submit">등록하기</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const createForm = document.getElementById('new-movie-form');
+
+        if(createForm) {
+            createForm.addEventListener('submit', createMovie);
+        }
+    });
+
+    function createMovie(e) {
+        e.preventDefault();
+
+        let title = document.getElementById('new-movie-title').value;
+        let myReview = document.getElementById('new-movie-review').value;
+        let star = document.getElementById('new-movie-star').value;
+
+        let movie = { title, myReview, star };
+
+        fetch('/api/movies', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(movie),
+        })
+            .then(response => response.json())
+            .then(() => window.location.href = 'index.html');
+    }
+</script>
+
+</body>
+</html>

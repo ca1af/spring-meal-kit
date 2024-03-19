@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>나만의 영화 기록</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<h1>나만의 영화 기록</h1>
+<button onclick="location.href='create.html'">나만의 영화 리뷰 작성하기</button>
+<div id="movies"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const movieListElement = document.getElementById('movies');
+
+        if(movieListElement) {
+            fetchMovies();
+        }
+    });
+
+    function fetchMovies() {
+        fetch('/api/movies')
+            .then(response => response.json())
+            .then(movies => {
+                const movieListElement = document.getElementById('movies');
+                movies.forEach(movie => {
+                    const movieElement = document.createElement('div');
+                    movieElement.innerHTML = `
+                        <h3>${movie.title}</h3>
+                        <p>${movie.myReview}</p>
+                        <p>${movie.star} stars</p>
+                        <button onclick="location.href='edit.html?id=${movie.id}'">수정하기</button>
+                    `;
+                    movieListElement.appendChild(movieElement);
+                });
+            });
+    }
+</script>
+
+</body>
+</html>
