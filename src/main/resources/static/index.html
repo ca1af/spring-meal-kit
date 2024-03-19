@@ -3,40 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>나만의 영화 기록</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body>
-<h1>나만의 영화 기록</h1>
-<button onclick="location.href='create.html'">나만의 영화 리뷰 작성하기</button>
-<div id="movies"></div>
+<body class="p-3">
+<h1 style="justify-content: center; display:flex;">나만의 영화 기록</h1>
+<div style="justify-content: center; display:flex;">
+    <button class="btn btn-primary mb-3" onclick="location.href='create.html'">나만의 영화 리뷰 작성하기</button>
+</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const movieListElement = document.getElementById('movies');
+<div id="movies" class="row"></div>
 
-        if(movieListElement) {
-            fetchMovies();
-        }
-    });
-
-    function fetchMovies() {
-        fetch('/api/movies')
-            .then(response => response.json())
-            .then(movies => {
-                const movieListElement = document.getElementById('movies');
-                movies.forEach(movie => {
-                    const movieElement = document.createElement('div');
-                    movieElement.innerHTML = `
-                        <h3>${movie.title}</h3>
-                        <p>${movie.myReview}</p>
-                        <p>${movie.star} stars</p>
-                        <button onclick="location.href='edit.html?id=${movie.id}'">수정하기</button>
-                    `;
-                    movieListElement.appendChild(movieElement);
-                });
-            });
-    }
-</script>
-
+<script src="app.js" defer></script>
 </body>
 </html>
