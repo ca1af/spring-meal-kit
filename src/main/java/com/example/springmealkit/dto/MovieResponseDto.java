@@ -27,12 +27,4 @@ public class MovieResponseDto {
 
     private LocalDateTime modifiedAt;
 
-    public MovieResponseDto(Movie movie) {
-        this.id = movie.getId();
-        this.title = movie.getTitle();
-        this.myReview = movie.getMyReview();
-        this.star = movie.getStar();
-        this.createdAt = movie.getCreatedAt();
-        this.modifiedAt = movie.getModifiedAt();
-    }
 }
