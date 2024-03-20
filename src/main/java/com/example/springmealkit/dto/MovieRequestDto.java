@@ -1,6 +1,8 @@
 package com.example.springmealkit.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * 영화 등록, 영화 수정에 필요한 DTO
@@ -9,6 +11,8 @@ import lombok.Getter;
  * 따라서 사용자에게 입력을 받을 때, 응답을 줄 때 모두 Dto 를 활용하는 것이 좋습니다!
  */
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MovieRequestDto {
     private String title; // 영화 제목
 
