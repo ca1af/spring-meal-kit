@@ -33,5 +33,26 @@ public class Movie extends TimeStamp{
     private String myReview; // 나만의 줄거리 요약
 
     @Column(name = "star", nullable = false)
-    private int star; // 내가 매기는 평점
+    private int star;
+
+    /**
+     * Movie 엔티티를 생성 해 주는 "생성자" 매서드입니다.
+     * 이 매서드가 호출 되면, 리턴 타입인 "Movie" 엔티티 를 반환합니다
+     * @param movieRequestDto 생성 요청 DTO
+     */
+    public Movie(MovieRequestDto movieRequestDto) {
+        this.title = movieRequestDto.getTitle();
+        this.myReview = movieRequestDto.getMyReview();
+        this.star = movieRequestDto.getStar();
+    }
+
+    /**
+     * JPA 의 변경 감지(Dirty Checking) 기능을 사용해서 Movie 엔티티의 정보를 업데이트 합니다.
+     * @param movieRequestDto 업데이트 요청 DTO
+     */
+    public void update(MovieRequestDto movieRequestDto) {
+        this.title = movieRequestDto.getTitle();
+        this.myReview = movieRequestDto.getMyReview();
+        this.star = movieRequestDto.getStar();
+    }
 }

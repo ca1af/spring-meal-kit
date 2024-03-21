@@ -1,6 +1,7 @@
 package com.example.springmealkit.dto;
 
 import com.example.springmealkit.entity.Movie;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +15,9 @@ import java.time.LocalDateTime;
  */
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
 public class MovieResponseDto {
+
     private Long id;
 
     private String title;
